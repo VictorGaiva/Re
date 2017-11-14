@@ -992,7 +992,7 @@ function af(a) {
             var m = ia - ka,
                 n = ja - la;
             if (!(1 >= oa && 1 == va && 1 >= ra && 0 == m && 0 == n && 3 != Aa)) {
-                var t = If(If(Get_Module(m), Get_Module(n)), 1),
+                var t = Max_Val(Max_Val(Get_Module(m), Get_Module(n)), 1),
                     m = Math.floor((m << 8) / t),
                     n = Math.floor((n << 8) / t),
                     u = (ka << 8) + 127,
@@ -1054,7 +1054,7 @@ function af(a) {
             56 != g && 0 == oa && (c = 1);
             m = Math.floor(ia / ha) - Math.floor(ka / ha);
             n = Math.floor(ja / ha) - Math.floor(la / ha);
-            t = If(If(Get_Module(m), Get_Module(n)),
+            t = Max_Val(Max_Val(Get_Module(m), Get_Module(n)),
                 1);
             m = Math.floor((m << 8) / t);
             n = Math.floor((n << 8) / t);
@@ -1066,7 +1066,7 @@ function af(a) {
                         x[b] && (x[b] = Hb, P[b] = Q[b] = re[b] = se[b] = te[b] = 0, Nf(e, f, -1)));
             Se();
             if (56 == g && 0 == oa)
-                for (m = ia - ka, n = ja - la, t = If(If(Get_Module(m), Get_Module(n)), 1), m = Math.floor((m << 8) / t), n = Math.floor((n << 8) / t), u = (ka << 8) + 127, F = (la << 8) + 127, a = 0; a <= t; a++, u += m, F += n)
+                for (m = ia - ka, n = ja - la, t = Max_Val(Max_Val(Get_Module(m), Get_Module(n)), 1), m = Math.floor((m << 8) / t), n = Math.floor((n << 8) / t), u = (ka << 8) + 127, F = (la << 8) + 127, a = 0; a <= t; a++, u += m, F += n)
                     for (b = p; b < pd; b++) u >> 8 == Math.floor(C[b].x) && F >> 8 == Math.floor(C[b].y) && qd(b--);
             if (54 == g || 56 == g || 57 == g || 58 == g)
                 for (a = p; a < pd; a++) 0 != x[(C[a].y >> 2) * w + (C[a].x >> 2)] && qd(a--);
@@ -1105,13 +1105,13 @@ function hf() {
         for (a = 288 * h; 4096 < a; a--) v[a] = 0;
     else if (1 == qa || 2 == qa)
         for (b = 2, d = 258; b < Ee; b++, d += 4)
-            for (c = 2; c < De; c++, d++) 0 == x[d] && (g = 0 < te[d] ? Math.floor(Rf(10 * te[d], 96)) : 0, m = 0 > te[d] ? Math.floor(Rf(-10 * te[d], 96)) : 0, ne(c << 2, b << 2, ha, ha, 0 | g << 8 | m));
+            for (c = 2; c < De; c++, d++) 0 == x[d] && (g = 0 < te[d] ? Math.floor(Min_Val(10 * te[d], 96)) : 0, m = 0 > te[d] ? Math.floor(Min_Val(-10 * te[d], 96)) : 0, ne(c << 2, b << 2, ha, ha, 0 | g << 8 | m));
     else if (3 == qa)
         for (a = 288 * h; 4096 < a; a--) 0 == x[R[a]] && (f = 230 * (v[a] >> 16 & 255) >> 8, g = 230 * (v[a] >> 8 & 255) >> 8, m = 230 * (v[a] & 255) >> 8, v[a] = f << 16 | g << 8 | m);
     else if (4 == qa)
         for (d = 4104, b = 8; 288 > b; b++, d += 16)
             for (c = 8; 504 > c; c++, d++) t.x =
-                U[d + (503 == c ? 0 : 1)] - U[d - (8 == c ? 0 : 1)], t.y = V[d + (287 == b ? 0 : 512)] - V[d - (8 == b ? 0 : 512)], f = Math.floor(512 * (t.x + t.y)), v[d] = 0 >= f ? Rf(-f, 255) : Rf(f, 255) << 8;
+                U[d + (503 == c ? 0 : 1)] - U[d - (8 == c ? 0 : 1)], t.y = V[d + (287 == b ? 0 : 512)] - V[d - (8 == b ? 0 : 512)], f = Math.floor(512 * (t.x + t.y)), v[d] = 0 >= f ? Min_Val(-f, 255) : Min_Val(f, 255) << 8;
     else if (5 == qa) {
         for (b = 8; 288 > b; b++) {
             d = (b << 9) + 8;
@@ -1144,11 +1144,11 @@ function hf() {
         for (a = 288 * h; 4096 <= a; a--) v[a] = 0;
     else if (10 == qa)
         for (b = 2, d = 258; b < Ee; b++, d += 4)
-            for (c = 2; c < De; c++, d++) 0 == x[d] && (f = 0, 0 < te[d] && (f = Math.floor(Rf(10 * te[d], 72))), 0 > te[d] && (f = Math.floor(Rf(-10 * te[d], 24))), ne(c << 2, b << 2, ha, ha, f << 16 | f << 8 | f));
+            for (c = 2; c < De; c++, d++) 0 == x[d] && (f = 0, 0 < te[d] && (f = Math.floor(Min_Val(10 * te[d], 72))), 0 > te[d] && (f = Math.floor(Min_Val(-10 * te[d], 24))), ne(c << 2, b << 2, ha, ha, f << 16 | f << 8 | f));
     else if (11 == qa)
         for (b = 2, d = 258; b < Ee; b++, d += 4)
             for (c = 2; c < De; c++, d++) {
-                if (0 == x[d] && (n = 256 - Math.floor(Rf(Get_Module(te[d]), 32)), 256 != n))
+                if (0 == x[d] && (n = 256 - Math.floor(Min_Val(Get_Module(te[d]), 32)), 256 != n))
                     for (e = (b << 11) + (c << 2), a = 0; 16 > a; a++) f = (v[e] >> 16 & 255) * n >> 8, g = (v[e] >> 8 & 255) * n >> 8, m = (v[e] & 255) * n >> 8, v[e] = f << 16 | g << 8 | m, e += u[a]
             } else if (12 ==
                 qa)
@@ -1182,8 +1182,8 @@ function hf() {
             for (c = 2; c < De; c++, d++) 0 == x[d] && (Set_XY(t, P[d], Q[d]), f = Math.floor(10 * Get_Unitary_Vector(t)), 2 > f || (48 < f && (f = 48), a = (c << 2) + 2, n = (b << 2) + 2, kf(a, n, a + t.x * f, n + t.y * f, 0 | f << 17)));
     else if (9 == qa)
         for (b = 2, d = 258; b < Ee; b++, d += 4)
-            for (c = 2; c < De; c++, d++) 0 == x[d] && (Set_XY(t, P[d], Q[d]), a = Get_Magnitude(t), 0.2 > a || (g = Math.floor(Rf(16 * a, 80)),
-                f = 0, 0 < te[d] && (f = Math.floor(Rf(te[d] * a, 80))), m = 0, 0 > te[d] && (m = Math.floor(Rf(-te[d] * a, 80))), a = (c << 2) + 5 * P[d], n = (b << 2) + 5 * Q[d], e = (c + 1 << 2) + 5 * P[d + 1], F = (b << 2) + 5 * Q[d + 1], kf(a, n, e, F, f << 16 | g << 8 | m), e = (c << 2) + 5 * P[d + w], F = (b + 1 << 2) + 5 * Q[d + w], kf(a, n, e, F, f << 16 | g << 8 | m)));
+            for (c = 2; c < De; c++, d++) 0 == x[d] && (Set_XY(t, P[d], Q[d]), a = Get_Magnitude(t), 0.2 > a || (g = Math.floor(Min_Val(16 * a, 80)),
+                f = 0, 0 < te[d] && (f = Math.floor(Min_Val(te[d] * a, 80))), m = 0, 0 > te[d] && (m = Math.floor(Min_Val(-te[d] * a, 80))), a = (c << 2) + 5 * P[d], n = (b << 2) + 5 * Q[d], e = (c + 1 << 2) + 5 * P[d + 1], F = (b << 2) + 5 * Q[d + 1], kf(a, n, e, F, f << 16 | g << 8 | m), e = (c << 2) + 5 * P[d + w], F = (b + 1 << 2) + 5 * Q[d + w], kf(a, n, e, F, f << 16 | g << 8 | m)));
     else if (14 == qa)
         for (a = 288 * h; 4096 < a; a--) I[a] == Ib ? (f = 255 - (255 - (v[a] >> 16 & 255) >> 1), g = 255 - (255 - (v[a] >> 8 & 255) >> 1), m = 255 - (255 - (v[a] & 255) >> 1), v[a] = f << 16 | g << 8 | m) : I[a] < Kb && (v[a] = 0);
     if (2 <= ya) {
@@ -1231,7 +1231,7 @@ function hf() {
             for (b = 8; 287 > b; b++, d += h) Db[d] = Db[d] + Db[d + h] >> 1;
             for (b = 287; 8 < b; b--, d -= h) Db[d] = Db[d] + Db[d - h] >> 1
         }
-        for (a = 288 * h; 4096 < a; a--) 1 > Db[a] ? v[a] = 0 : (n = Rf(Db[a], 255), f = (v[a] >> 16 & 255) * n >> 8, g = (v[a] >> 8 & 255) * n >> 8, m = (v[a] & 255) * n >> 8, v[a] = f << 16 | g << 8 | m)
+        for (a = 288 * h; 4096 < a; a--) 1 > Db[a] ? v[a] = 0 : (n = Min_Val(Db[a], 255), f = (v[a] >> 16 & 255) * n >> 8, g = (v[a] >> 8 & 255) * n >> 8, m = (v[a] & 255) * n >> 8, v[a] = f << 16 | g << 8 | m)
     } else if (15 == qa)
         for (b = 2, d = 258; b < Ee; b++, d += 4)
             for (c = 2; c < De; c++, d++) {
@@ -1240,7 +1240,7 @@ function hf() {
                 for (a = 0; 16 > a; a++) 0 != v[e] && (f += v[e] >> 16 & 255, g += v[e] >> 8 & 255, m += v[e] & 255, n++), e += u[a];
                 if (0 != n)
                     for (f = Math.floor(f / n), g = Math.floor(g /
-                            n), m = Math.floor(m / n), e = (b << 11) + (c << 2), a = 0; 16 > a; a++) v[e] = 3 > a || 4 == a || 8 == a ? Rf(f + 48, 255) << 16 | Rf(g + 48, 255) << 8 | Rf(m + 48, 255) : 12 < a || 7 == a || 11 == a ? If(f - 32, 0) << 16 | If(g - 32, 0) << 8 | If(m - 32, 0) : f << 16 | g << 8 | m, e += u[a]
+                            n), m = Math.floor(m / n), e = (b << 11) + (c << 2), a = 0; 16 > a; a++) v[e] = 3 > a || 4 == a || 8 == a ? Min_Val(f + 48, 255) << 16 | Min_Val(g + 48, 255) << 8 | Min_Val(m + 48, 255) : 12 < a || 7 == a || 11 == a ? Max_Val(f - 32, 0) << 16 | Max_Val(g - 32, 0) << 8 | Max_Val(m - 32, 0) : f << 16 | g << 8 | m, e += u[a]
             }
     Vf()
 }
@@ -1851,11 +1851,11 @@ function Wg(a, c) {
         if (3 != X[b]) return 0;
         n = ~~C[a].x;
         t = ~~C[a].y;
-        d = If(n - 8, 8);
-        b = If(t - 8,
+        d = Max_Val(n - 8, 8);
+        b = Max_Val(t - 8,
             8);
-        g = Rf(n + 8, 503);
-        m = Rf(t + 8, 287);
+        g = Min_Val(n + 8, 503);
+        m = Min_Val(t + 8, 287);
         for (f = b; f <= m; f++)
             for (e = d; e <= g; e++) 64 < (e - n) * (e - n) + (f - t) * (f - t) || (b = (f + t >> 1 << 9) + (e + n >> 1), 1 <= x[R[b]] || (b = I[(f << 9) + e], b >= p && D[b] != Ub && (D[b] == ec && L(b, cc, 0, s[cc]), J[b].x += e - n, J[b].y += f - t)));
         n = Pe(n, 12, 499);
@@ -1945,10 +1945,10 @@ function Xg(a, c) {
             var F = 8;
             t = ~~C[a].x;
             u = ~~C[a].y;
-            e = If(t - F, 8);
-            d = If(u - F, 8);
-            m = Rf(t + F, 503);
-            n = Rf(u + F, 287);
+            e = Max_Val(t - F, 8);
+            d = Max_Val(u - F, 8);
+            m = Min_Val(t + F, 503);
+            n = Min_Val(u + F, 287);
             for (g = d; g <= n; g++)
                 for (f = e; f <= m; f++) F * F < (f - t) * (f - t) + (g - u) * (g - u) || (d = (g + u >> 1 << 9) + (f + t >> 1), 1 <= x[R[d]] || (b = I[(g << 9) + f], b >= p && (D[b] == ec && L(b, cc, 0, s[cc]), J[b].x += f - t, J[b].y += g - u)));
             t = Pe(t, 12, 499);
@@ -2074,10 +2074,10 @@ function Xg(a, c) {
         F = 8;
         t = ~~C[a].x;
         u = ~~C[a].y;
-        e = If(t - F, 8);
-        d = If(u - F, 8);
-        m = Rf(t + F, 503);
-        n = Rf(u + F, 287);
+        e = Max_Val(t - F, 8);
+        d = Max_Val(u - F, 8);
+        m = Min_Val(t + F, 503);
+        n = Min_Val(u + F, 287);
         for (g = d; g <= n; g++)
             for (f = e; f <= m; f++) F * F < (f - t) * (f - t) + (g - u) * (g - u) || (d = (g + u >> 1 << 9) + (f + t >> 1), 1 <= x[R[d]] || (b = I[(g << 9) + f], b >= p && (D[b] == ec && L(b, cc, 0, s[cc]), J[b].x += f - t, J[b].y += g - u)));
         t = Pe(t, 12, 499);
@@ -2147,10 +2147,10 @@ function Xg(a, c) {
         F = 8;
         t = ~~C[a].x;
         u = ~~C[a].y;
-        e = If(t - F, 8);
-        d = If(u - F, 8);
-        m = Rf(t + F, 503);
-        n = Rf(u + F, 287);
+        e = Max_Val(t - F, 8);
+        d = Max_Val(u - F, 8);
+        m = Min_Val(t + F, 503);
+        n = Min_Val(u + F, 287);
         for (g = d; g <= n; g++)
             for (f = e; f <= m; f++) F * F < (f - t) * (f - t) + (g - u) * (g - u) || (d = (g + u >> 1 << 9) + (f + t >> 1), 1 <= x[R[d]] || (b = I[(g << 9) + f], D[b] == lc && (G[b] = 1), b <= l && Lf(0.02) && Ad(f, g, r, 0)));
         L(a, r, 0, s[r])
@@ -2201,10 +2201,10 @@ function Yg(a, c) {
                 var M = 4;
                 t = ~~C[a].x;
                 u = ~~C[a].y;
-                e = If(t - M, 8);
-                f = If(u - M, 8);
-                m = Rf(t + M, 503);
-                n = Rf(u + M, 287);
+                e = Max_Val(t - M, 8);
+                f = Max_Val(u - M, 8);
+                m = Min_Val(t + M, 503);
+                n = Min_Val(u + M, 287);
                 var $ = t + bh(-0.5, 0.5),
                     Ca = u + bh(-0.5, 0.5);
                 for (d = f; d <= n; d++)
@@ -2260,10 +2260,10 @@ function Yg(a, c) {
         M = 8;
         t = ~~C[a].x;
         u = ~~C[a].y;
-        e = If(t - M, 8);
-        f = If(u - M, 8);
-        m = Rf(t + M, 503);
-        n = Rf(u + M, 287);
+        e = Max_Val(t - M, 8);
+        f = Max_Val(u - M, 8);
+        m = Min_Val(t + M, 503);
+        n = Min_Val(u + M, 287);
         $ = t + bh(-0.5, 0.5);
         Ca = u + bh(-0.5, 0.5);
         Set_XY(c, 0, 0);
@@ -2661,10 +2661,10 @@ function $g(a, c) {
                 u = 3;
                 e = ~~C[a].x;
                 b = ~~C[a].y;
-                d = If(e - u, 8);
-                n = If(b - u, 8);
-                f = Rf(e + u, 503);
-                t = Rf(b + u, 287);
+                d = Max_Val(e - u, 8);
+                n = Max_Val(b - u, 8);
+                f = Min_Val(e + u, 503);
+                t = Min_Val(b + u, 287);
                 u = e + bh(-0.5, 0.5);
                 F = b + bh(-0.5, 0.5);
                 Set_XY(c, 0, 0);
@@ -3431,7 +3431,7 @@ function Bh(a, c) {
     } else if (A[a] == bc || A[a] == ic)
         if (3 == X[c]) {
             d = 8;
-            for (var m = ~~B[a].x, n = ~~B[a].y, t = If(m - d, 8), f = If(n - d, 8), u = Rf(m + d, 503), F = Rf(n + d, 287), M, g = f; g <= F; g++)
+            for (var m = ~~B[a].x, n = ~~B[a].y, t = Max_Val(m - d, 8), f = Max_Val(n - d, 8), u = Min_Val(m + d, 503), F = Min_Val(n + d, 287), M, g = f; g <= F; g++)
                 for (b = t; b <= u; b++) d * d < (b - m) * (b - m) + (g - n) * (g - n) || (f = (g + n >> 1 << 9) + (b + m >> 1), 1 <= x[R[f]] ||
                     (M = I[(g << 9) + b], M >= p && (D[M] == ec && L(M, cc, 0, s[cc]), J[M].x += 2 * (b - m), J[M].y += 2 * (g - n)), M <= l && A[a] == ic && Ad(b, g, r, 0)));
             m = Pe(m, 12, 499);
@@ -3455,10 +3455,10 @@ function Bh(a, c) {
             d = 8;
             m = ~~B[a].x;
             n = ~~B[a].y;
-            t = If(m - d, 8);
-            f = If(n - d, 8);
-            u = Rf(m + d, 503);
-            F = Rf(n + d, 287);
+            t = Max_Val(m - d, 8);
+            f = Max_Val(n - d, 8);
+            u = Min_Val(m + d, 503);
+            F = Min_Val(n + d, 287);
             Set_XY(e, 0, 0);
             for (g = f; g <= F; g++)
                 for (b = t; b <= u; b++) d * d < (b - m) * (b - m) + (g - n) * (g - n) || (M = I[(g << 9) + b], M >= p && (e.x += m - b, e.y += n - g));
@@ -3730,7 +3730,7 @@ var ai = 0;
 function kf(a, c, b, d, e) {
     var f = ~~b - ~~a,
         g = ~~d - ~~c,
-        m = If(If(Get_Module(f), Get_Module(g)), 1),
+        m = Max_Val(Max_Val(Get_Module(f), Get_Module(g)), 1),
         f = Math.floor((f << 8) / m),
         g = Math.floor((g << 8) / m);
     a = (a << 8) + 127;
@@ -3848,7 +3848,7 @@ document.oncontextmenu = function () {
     if (ci) return false
 };
 
-function di(a) {
+function di(a) {//DO STUFF HERE
     for (var c = 0, b = 0, d = HTML_Canvas; null !== d; d = d.offsetParent) c += d.offsetLeft, b += d.offsetTop;
     a = a.touches;
     Th = Math.floor(a[0].pageX - c);
@@ -4056,22 +4056,28 @@ function Get_Module(a) {
     return 0 > a ? -a : a
 }
 
-function If(a, c) {
+function Max_Val(a, c) {
     return a > c ? a : c
 }
 
-function Rf(a, c) {
+function Min_Val(a, c) {
     return a < c ? a : c
 }
 
 function Pe(a, c, b) {
-    return a < c ? c : a > b ? b : a
+    if(a < c)
+        return c;
+    else if (a > b)
+        return b;
+    else
+        return a;
 }
 
 function Je(a, c) {
-    return 0 > a ? c : a > c ? 0 : a
+    if (0 > a)
+        return c;
+    else if(a > c)
+        return 0;
+    else
+        return a;
 }
-
-//function Math.floor(a) {
-//    return Math.floor(a)
-//};
