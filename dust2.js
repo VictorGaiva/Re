@@ -465,7 +465,7 @@ function Jd(a, c, b, d) {
 }
 var Kd = 0;
 
-function Ld(a, c, b) {
+function Main_Function(a, c, b) {
     if (0 == Kd) {
         $a = null != a ? a : "";
         for (a = 0; 8 > a && a < $a.length; a++) ab[a] = $a.charCodeAt(a);
@@ -527,7 +527,7 @@ function Ld(a, c, b) {
         for (c = 0; c < h * ba; c++) v[c] = 0;
         for (c = 0; c < h * ba * 4; c++) $d[c] = 255;
         N.m("font.gif", 8, 12);
-        ae() ? Kd-- : Kd++
+        Check_Hostname() ? Kd-- : Kd++
     }
     if (1 == Kd) {
         c = N.l;
@@ -535,7 +535,7 @@ function Ld(a, c, b) {
             be--;
             b = c.c.width;
             a = c.c.height;
-            if (0 == b || 0 == a) throw delete c.c, c.file = "", ce;
+            if (0 == b || 0 == a) throw delete c.c, c.file = "", STR_Error;
             var d = document.createElement("canvas");
             d.width = b;
             d.height = a;
@@ -548,7 +548,7 @@ function Ld(a, c, b) {
             delete c.c;
             c.j = 1
         }
-        0 != be ? setTimeout(Ld, ie()) : Kd++
+        0 != be ? setTimeout(Main_Function, ie()) : Kd++
     }
     if (2 == Kd) {
         0 == $a.length ? (jb = 2, lb = 1) : 0 != cb && (jb =
@@ -3543,7 +3543,7 @@ function Md(a) {
         window.console.log(a)
     } catch (c) {}
 }
-window.Init = Ld;
+window.Init = Main_Function;
 
 var Ih = 0,
     v = new Int32Array(h * ba);
@@ -3559,18 +3559,18 @@ function pe() {
         Conter_1++;
         Qh = a
     }
-    Me = false == Ve && true == Rh;
-    Te = true == Ve && false == Rh;
-    Ne = false == We && true == Sh;
-    Ue = true == We && false == Sh;
-    Ve = Rh;
-    We = Sh;
+    Me = false == Ve && true == Mouse_Button_Left;
+    Te = true == Ve && false == Mouse_Button_Left;
+    Ne = false == We && true == Mouse_Button_Right;
+    Ue = true == We && false == Mouse_Button_Right;
+    Ve = Mouse_Button_Left;
+    We = Mouse_Button_Right;
     Ie = !(Te | Ve | Ue | We);
     Oe = Te ? 1 : Ue ? -1 : 0;
     Pf = Le;
     Qf = He;
-    Le = Th;
-    He = Uh;
+    Le = Canvas_Pos_X;
+    He = Canvas_Pos_Y;
     for (a = 0; 256 > a; a++) Pd[a] = Qd[a], Qd[a] = false, Td[a] = false == Sd[a] && true == Rd[a], Ud[a] = true == Sd[a] && false == Rd[a], Sd[a] = Rd[a];
     Yd = Yd + Math.floor(1024 * Math.random()) & 1023;
     Rnd_Odd = Math.floor(512 * Math.random()) | 1;
@@ -3579,14 +3579,19 @@ function pe() {
         h * ba : 0;
     for (c = a = 0; a < b; a++) $d[c++] = v[a] >> 16 & 255, $d[c++] = v[a] >> 8 & 255, $d[c++] = v[a] & 255, c++;
     Gh(Dh, -8, -8, 8, 8, h - 16, ba - 8);
-    AnimationFrame ? Ph += Date.now() - Time_1 : setTimeout(pe, ie())
+    if(AnimationFrame)
+        Ph += Date.now() - Time_1;
+    else
+        setTimeout(pe, ie());
 }
 var Ge = 1;
 
-function ae() {
-    if (location.hostname.length != "dan-ball.jp".length) return true;
+function Check_Hostname() {
+    if (location.hostname.length != "dan-ball.jp".length)
+        return true;
     for (Ge = 0; Ih < location.hostname.length; Ih++)
-        if (location.hostname[Ih] != "dan-ball.jp"[Ih]) return true;
+        if (location.hostname[Ih] != "dan-ball.jp"[Ih])
+            return true;
     return false
 }
 var AnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame,
@@ -3810,39 +3815,51 @@ var Ze = new Vector2D,
     Me = false,
     Te = false,
     Ve = false,
-    Rh = false,
+    Mouse_Button_Left = false,
     Ne = false,
     Ue = false,
     We = false,
-    Sh = false,
+    Mouse_Button_Right = false,
     Ie = false,
     Oe = 0,
     Le = 0,
     He = 0,
     Pf = 0,
     Qf = 0,
-    Th = 0,
-    Uh = 0;
+    Canvas_Pos_X = 0,
+    Canvas_Pos_Y = 0;
 
 function Ke(a, c, b, d) {
-    return Le < a || a + b <= Le || He < c || c + d <= He ? false : true
+    if(Le < a || a + b <= Le || He < c || c + d <= He)
+        return false;
+    else
+        return true;
 }
 
-function bi(a) {
-    var c = HTML_Canvas.getBoundingClientRect();
-    Th = Math.floor(a.clientX - c.left);
-    Uh = Math.floor(a.clientY - c.top)
+function Get_Canvas_Pos(Event_Params) {
+    var BoundingRect = HTML_Canvas.getBoundingClientRect();
+    Canvas_Pos_X = Math.floor(Event_Params.clientX - BoundingRect.left);
+    Canvas_Pos_Y = Math.floor(Event_Params.clientY - BoundingRect.top)
 }
-document.onmousemove = bi;
-document.onmousedown = function (a) {
-    bi(a);
+
+document.onmousemove = Get_Canvas_Pos;
+
+document.onmousedown = function (Event_Params) {
+    Get_Canvas_Pos(Event_Params);
     ci = false;
-    if (!(0 > Th || h <= Th || 0 > Uh || ba <= Uh) && (ci = true, 0 == a.button && (Rh = true), 2 == a.button && (Sh = true), ci)) return false
+    if(!(0 > Canvas_Pos_X || h <= Canvas_Pos_X || 0 > Canvas_Pos_Y || ba <= Canvas_Pos_Y)){
+        ci = true
+        if(0 == Event_Params.button)
+            Mouse_Button_Left = true
+        if(2 == Event_Params.button)
+            Mouse_Button_Right = true
+        return false;
+    }
 };
-document.onmouseup = function (a) {
-    bi(a);
-    0 == a.button && (Rh = false);
-    2 == a.button && (Sh = false)
+document.onmouseup = function (Event_Params) {
+    Get_Canvas_Pos(Event_Params);
+    0 == Event_Params.button && (Mouse_Button_Left = false);
+    2 == Event_Params.button && (Mouse_Button_Right = false)
 };
 document.oncontextmenu = function () {
     if (ci) return false
@@ -3851,25 +3868,25 @@ document.oncontextmenu = function () {
 function di(a) {//DO STUFF HERE
     for (var c = 0, b = 0, d = HTML_Canvas; null !== d; d = d.offsetParent) c += d.offsetLeft, b += d.offsetTop;
     a = a.touches;
-    Th = Math.floor(a[0].pageX - c);
-    Uh = Math.floor(a[0].pageY - b)
+    Canvas_Pos_X = Math.floor(a[0].pageX - c);
+    Canvas_Pos_Y = Math.floor(a[0].pageY - b)
 }
 document.ontouchstart = function (a) {
     di(a);
-    ci = Sh = Rh = false;
-    if (!(0 > Th || h <= Th || 0 > Uh || ba <= Uh)) return Rh = ci = true, 1 < a.touches.length && (Sh = true), false
+    ci = Mouse_Button_Right = Mouse_Button_Left = false;
+    if (!(0 > Canvas_Pos_X || h <= Canvas_Pos_X || 0 > Canvas_Pos_Y || ba <= Canvas_Pos_Y)) return Mouse_Button_Left = ci = true, 1 < a.touches.length && (Mouse_Button_Right = true), false
 };
 document.ontouchmove = function (a) {
     di(a);
     if (ci) return false
 };
 document.ontouchend = function (a) {
-    1 > a.touches.length && (Rh = false);
-    Sh = false;
+    1 > a.touches.length && (Mouse_Button_Left = false);
+    Mouse_Button_Right = false;
     if (ci) return false
 };
 document.ontouchcancel = function () {
-    Sh = Rh = ci = false
+    Mouse_Button_Right = Mouse_Button_Left = ci = false
 };
 var Pd = Array(256),
     Qd = Array(256),
@@ -3914,9 +3931,9 @@ var Request_Buffer = Array(100),
 var Ff = "&j=",
     Gf = "&k=";
 "ok";
-var ce = "ERROR",
-    fi = "=",
-    gi = "\n",
+var STR_Error = "ERROR",
+    STR_Equal = "=",
+    STR_NewLine = "\n",
     Request_Header = "Content-Type",
     Request_HeaderVal = "application/x-www-form-urlencoded";
 
@@ -3935,15 +3952,15 @@ function Make_HTTP_Request(Request_URL, Request_Data) {
                     var a, b, c = 0,
                         e = HTTP_RequestOBJ.responseText.length;
                     for (a = 0; a < e; a++)
-                        if (b = HTTP_RequestOBJ.responseText[a], b == fi) {
+                        if (b = HTTP_RequestOBJ.responseText[a], b == STR_Equal) {
                             for (a += 1; a < e; a++) {
                                 b = HTTP_RequestOBJ.responseText[a];
-                                if (b == gi) break;
+                                if (b == STR_NewLine) break;
                                 Request_Buffer[c] += b
                             }
                             c++
                         } else
-                            for (; a < e && HTTP_RequestOBJ.responseText[a] != gi; a++);
+                            for (; a < e && HTTP_RequestOBJ.responseText[a] != STR_NewLine; a++);
                     Request_Status = 1
                 }
                 else{
